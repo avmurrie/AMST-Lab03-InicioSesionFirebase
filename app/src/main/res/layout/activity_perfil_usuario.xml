@@ -32,6 +32,14 @@
         android:gravity="center"
         android:text="correo"
         android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/txt_telefono"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="telefono"
+        android:textSize="18sp" />
     <Button
         android:id="@+id/btn_logout"
         android:layout_width="match_parent"

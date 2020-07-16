@@ -16,7 +16,7 @@ import java.util.HashMap;
 
 public class PerfilUsuario extends AppCompatActivity {
 
-    TextView txt_id, txt_name, txt_email;
+    TextView txt_id, txt_name, txt_email,txt_phone;
     ImageView imv_photo;
     Button btn_logout;
     @Override
@@ -29,9 +29,11 @@ public class PerfilUsuario extends AppCompatActivity {
         txt_name = findViewById(R.id.txt_nombre);
         txt_email = findViewById(R.id.txt_correo);
         imv_photo = findViewById(R.id.imv_foto);
+        txt_phone = findViewById(R.id.txt_telefono);
         txt_id.setText(info_user.get("user_id"));
         txt_name.setText(info_user.get("user_name"));
         txt_email.setText(info_user.get("user_email"));
+        txt_phone.setText(info_user.get("user_phone"));
         String photo = info_user.get("user_photo");
         Picasso.with(getApplicationContext()).load(photo).into(imv_photo);
     }
