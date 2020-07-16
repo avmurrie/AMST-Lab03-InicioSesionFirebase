@@ -10,12 +10,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class PerfilUsuario extends AppCompatActivity {
-
+    DatabaseReference db_reference;
     TextView txt_id, txt_name, txt_email,txt_phone;
     ImageView imv_photo;
     Button btn_logout;
@@ -36,6 +42,11 @@ public class PerfilUsuario extends AppCompatActivity {
         txt_phone.setText(info_user.get("user_phone"));
         String photo = info_user.get("user_photo");
         Picasso.with(getApplicationContext()).load(photo).into(imv_photo);
+
+        iniciarBaseDeDatos();
+        leerTweets();
+        escribirTweets(info_user.get("user_name"));
+
     }
 
     public void cerrarSesion(View view){
@@ -45,4 +56,39 @@ public class PerfilUsuario extends AppCompatActivity {
         intent.putExtra("msg", "cerrarSesion");
         startActivity(intent);
     }
+
+    public void iniciarBaseDeDatos(){
+        db_reference = FirebaseDatabase.getInstance().getReference().child("Grupo");
+    }
+
+    public void leerTweets(){
+
+        db_reference.child("Grupo 0").child("tweets")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            System.out.println(snapshot);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError error) {
+                        System.out.println(error.toException());
+                    }
+                });
+
+    }
+
+    public void escribirTweets(String autor){
+        String tweet = "hola mundo firebase 2";
+        String fecha = "31/10/2019";
+        Map<String, String> hola_tweet = new HashMap<String, String>();
+        hola_tweet.put("autor", autor);
+        hola_tweet.put("fecha", fecha);
+        DatabaseReference tweets = db_reference.child("Grupo 0").child("tweets");      tweets.setValue(tweet);
+        tweets.child(tweet).child("autor").setValue(autor);
+        tweets.child(tweet).child("fecha").setValue(fecha);
+    }
+
 }
