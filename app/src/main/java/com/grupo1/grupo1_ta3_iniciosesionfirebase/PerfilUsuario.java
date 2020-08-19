@@ -44,8 +44,8 @@ public class PerfilUsuario extends AppCompatActivity {
         Picasso.with(getApplicationContext()).load(photo).into(imv_photo);
 
         iniciarBaseDeDatos();
-        leerTweets();
-        escribirTweets(info_user.get("user_name"));
+        //leerTweets();
+       // escribirTweets(info_user.get("user_name"));
 
     }
 
@@ -58,10 +58,14 @@ public class PerfilUsuario extends AppCompatActivity {
     }
 
     public void iniciarBaseDeDatos(){
-        db_reference = FirebaseDatabase.getInstance().getReference().child("Grupo");
+        db_reference = FirebaseDatabase.getInstance().getReference().child("Grupo1");
+    }
+    public void irRegistros(View view){
+        Intent intent = new Intent(this, Registros.class);
+        startActivity(intent);
     }
 
-    public void leerTweets(){
+    /*public void leerTweets(){
 
         db_reference.child("Grupo1").child("Tweets")
                 .addValueEventListener(new ValueEventListener() {
@@ -78,9 +82,9 @@ public class PerfilUsuario extends AppCompatActivity {
                     }
                 });
 
-    }
+    }*/
 
-    public void escribirTweets(String autor){
+   /* public void escribirTweets(String autor){
         String tweet = "hola mundo firebase 2";
         String fecha = "31/10/2019";
         Map<String, String> hola_tweet = new HashMap<String, String>();
@@ -89,6 +93,6 @@ public class PerfilUsuario extends AppCompatActivity {
         DatabaseReference tweets = db_reference.child("Grupo1").child("Tweets");      tweets.setValue(tweet);
         tweets.child(tweet).child("autor").setValue(autor);
         tweets.child(tweet).child("fecha").setValue(fecha);
-    }
+    }*/
 
 }
