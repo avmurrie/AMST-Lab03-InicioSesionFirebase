@@ -65,6 +65,12 @@ public class PerfilUsuario extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void irRegistrosLab5(View view){
+        Intent intent = new Intent(this, RegistrosLab5.class);
+        startActivity(intent);
+    }
+
+
     /*public void leerTweets(){
 
         db_reference.child("Grupo1").child("Tweets")
